@@ -934,7 +934,8 @@ window.__fa=(function(){
     '.fa-stat{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--bg2)}.fa-stat .n{font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1}.fa-stat .l{font-size:.68rem;color:var(--fg2);text-transform:uppercase;letter-spacing:.16em;margin-top:8px;font-weight:600}'+
     '.fa-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#2ec27e;margin-right:8px;box-shadow:0 0 8px rgba(46,194,126,.6);animation:fa-pulse 1.6s ease-in-out infinite;vertical-align:middle}@keyframes fa-pulse{0%,100%{opacity:1}50%{opacity:.35}}'+
     '.fa-section{margin-bottom:36px}.fa-section h3{font-size:.7rem;text-transform:uppercase;letter-spacing:.24em;color:var(--accent);margin:0 0 12px;font-weight:700}'+
-    '.fa-table{width:100%;border-collapse:collapse;font-size:.85rem}.fa-table th{text-align:left;font-size:.66rem;color:var(--fg2);text-transform:uppercase;letter-spacing:.12em;padding:10px 12px;border-bottom:1px solid var(--line)}.fa-table td{padding:10px 12px;border-bottom:1px solid var(--line);color:var(--fg);vertical-align:top}.fa-table tr:last-child td{border-bottom:0}'+
+    '.fa-table{width:100%;border-collapse:collapse;font-size:.85rem}.fa-table th{text-align:left;font-size:.66rem;color:var(--fg2);text-transform:uppercase;letter-spacing:.12em;padding:10px 12px;border-bottom:1px solid var(--line)}.fa-table td{padding:10px 12px;border-bottom:1px solid var(--line);color:var(--fg);vertical-align:top;line-height:1.45}.fa-table td b{font-weight:700}.fa-table tr:last-child td{border-bottom:0}'+
+    '.fa-linkform{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}.fa-linkform input{flex:1 1 260px;padding:11px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--fg);font:inherit;font-size:.95rem}.fa-linkform input:focus{outline:none;border-color:var(--accent)}.fa-btn-sm{width:auto;padding:11px 18px}.fa-hint{font-size:.8rem;color:var(--fg2);margin:10px 0 0}.fa-copy{font:inherit;font-size:.75rem;font-weight:700;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer;margin:2px 4px 2px 0;white-space:nowrap}.fa-copy:hover{border-color:var(--accent);color:var(--accent)}.fa-copy.ok{background:var(--accent);border-color:var(--accent);color:#fff}.fa-del{font:inherit;font-size:.75rem;color:var(--fg2);background:none;border:0;cursor:pointer}.fa-del:hover{color:var(--accent)}.fa-code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 6px}'+
     '.fa-empty{color:var(--fg2);font-size:.85rem;padding:14px 0}.fa-tag{display:inline-block;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#fff;background:#8a8a8a;border-radius:4px;padding:2px 6px;margin-right:6px}.fa-tog{display:block;margin-top:8px;font-size:.72rem;font-weight:600;color:var(--fg2);cursor:pointer}.fa-tog input{vertical-align:middle;margin-right:3px}'+
     '.fa-scroll{max-height:360px;overflow-y:auto;border:1px solid var(--line);border-radius:14px;background:var(--bg2)}.fa-scroll .fa-table th{position:sticky;top:0;background:var(--bg2);z-index:1}'+
     '.fa-bars{display:grid;gap:8px}.fa-bar{display:grid;grid-template-columns:minmax(120px,42%) 1fr 40px;gap:12px;align-items:center;font-size:.85rem}.fa-bar span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fa-bar i{display:block;height:8px;border-radius:4px;background:var(--accent);opacity:.85}.fa-bar b{text-align:right;font-weight:700}'+
@@ -959,8 +960,14 @@ window.__fa=(function(){
           '<div class="fa-stat"><div class="n"><span class="fa-dot"></span><span id="fa-active">—</span></div><div class="l">Active right now</div></div>'+
           '<div class="fa-stat"><div class="n" id="fa-bots">—</div><div class="l">Bots &amp; previews</div><label class="fa-tog"><input type="checkbox" id="fa-showbots"> Include in tables</label></div>'+
         '</div>'+
+        '<div class="fa-section" id="fa-links-sec"><h3>Share links</h3>'+
+          '<div class="fa-linkform"><input type="text" id="fa-link-name" placeholder="Who are you sharing with? e.g. Producer Raj" maxlength="60"><button class="fa-btn fa-btn-sm" id="fa-link-add">Create link</button></div>'+
+          '<div class="fa-scroll" style="max-height:none"><table class="fa-table" id="fa-links-table"><thead><tr><th>Name</th><th>Code</th><th>Opens</th><th>Last seen</th><th>Links</th><th></th></tr></thead><tbody><tr><td colspan="6" class="fa-empty">No links yet — create one above.</td></tr></tbody></table></div>'+
+          '<p class="fa-hint">Each name gets a random code (the person never sees their name). Anyone opening that link is shown under this name in every table below.</p>'+
+        '</div>'+
         '<div class="fa-two"><div class="fa-section"><h3>Where visitors come from</h3><div class="fa-bars" id="fa-sources"><div class="fa-empty">Loading…</div></div></div>'+
-        '<div class="fa-section"><h3>Devices</h3><div class="fa-bars" id="fa-devices"><div class="fa-empty">Loading…</div></div></div></div>'+
+        '<div class="fa-section"><h3>Browser &amp; OS</h3><div class="fa-bars" id="fa-devices"><div class="fa-empty">Loading…</div></div></div></div>'+
+        '<div class="fa-section"><h3>Top devices</h3><div class="fa-bars" id="fa-models"><div class="fa-empty">Loading…</div></div></div>'+
         '<div class="fa-two"><div class="fa-section"><h3>Top locations</h3><div class="fa-bars" id="fa-locs"><div class="fa-empty">Loading…</div></div></div>'+
         '<div class="fa-section"><h3>Countries</h3><div class="fa-bars" id="fa-countries"><div class="fa-empty">Loading…</div></div></div></div>'+
         '<div class="fa-section"><h3>Recent visits</h3><div class="fa-scroll"><table class="fa-table" id="fa-visits-table"><thead><tr><th>When</th><th>Page</th><th>Source</th><th>Location</th><th>Device</th><th>Network</th></tr></thead><tbody><tr><td colspan="6" class="fa-empty">Loading…</td></tr></tbody></table></div></div>'+
@@ -989,7 +996,7 @@ var firebaseConfig = {
   messagingSenderId: "361609739862",
   appId: "1:361609739862:web:dbb535e65790fbdaf385f7"
 };
-var C_VISITS='film_visits', C_PRESENCE='film_presence', C_EVENTS='film_events';
+var C_VISITS='film_visits', C_PRESENCE='film_presence', C_EVENTS='film_events', C_LINKS='film_links';
 
 var app, db, auth;
 try { if(!window.firebase) throw new Error("no firebase"); app = firebase.initializeApp(firebaseConfig); db = firebase.firestore(); try{ db.settings({ experimentalAutoDetectLongPolling: true, merge: true }); }catch(e){} auth = firebase.auth(); } catch (e) { console.warn('Analytics unavailable', e); }
@@ -1016,7 +1023,18 @@ function pageName(){ var m=(location.hash||'').match(/^#\/project\/([a-z]+)$/); 
 function isBot(){ var ua=navigator.userAgent||''; return /bot|crawl|spider|slurp|preview|facebookexternalhit|WhatsApp|Twitterbot|LinkedInBot|Slackbot|TelegramBot|Discordbot|Pinterest|Embedly|Quora|HeadlessChrome|Lighthouse|PTST|Google-InspectionTool|Applebot|bingbot|DuckDuckBot|SkypeUriPreview|Iframely/i.test(ua) || (navigator.webdriver===true); }
 function inApp(){ var ua=navigator.userAgent||''; if(/Instagram/i.test(ua)) return 'Instagram'; if(/FBAN|FBAV|FB_IAB/i.test(ua)) return 'Facebook'; if(/LinkedInApp/i.test(ua)) return 'LinkedIn'; if(/Twitter/i.test(ua)) return 'X / Twitter'; if(/Snapchat/i.test(ua)) return 'Snapchat'; if(/Line\//i.test(ua)) return 'LINE'; if(/Telegram/i.test(ua)) return 'Telegram'; return null; }
 function connKind(g){ var ua=navigator.userAgent||''; var mobile=/Android|iPhone|iPad|Mobile/i.test(ua); var ct=(g&&g.ctype)||''; if(/cellular|mobile/i.test(ct)) return 'Mobile data'; if(/hosting|business|datacenter|data center|cdn/i.test(ct)) return 'Datacenter'; if(/wifi|dsl|cable|isp|broadband|fiber|residential/i.test(ct)) return 'Broadband'; var isp=(g&&g.isp)||''; if(/amazon|aws|google cloud|microsoft|azure|digitalocean|linode|ovh|hetzner|cloudflare|oracle|fastly|akamai|meta platforms|facebook/i.test(isp)) return 'Datacenter'; if(/jio|airtel|vodafone|idea|bsnl|vi |cellular|mobile|telecom|t-mobile|verizon wireless|at&t mobility|maxis|celcom|digi|umobile|ais|dtac|true move/i.test(isp)) return mobile?'Mobile data':'Telecom'; return mobile?'Mobile (Wi-Fi?)':'Broadband'; }
-var pageSource=resolveSource(); var _inApp=inApp(); if(pageSource==='Direct / Unknown' && _inApp) pageSource=_inApp+' (in-app)';
+var SAMSUNG={'S918':'Galaxy S23 Ultra','S916':'Galaxy S23+','S911':'Galaxy S23','S928':'Galaxy S24 Ultra','S926':'Galaxy S24+','S921':'Galaxy S24','S938':'Galaxy S25 Ultra','S936':'Galaxy S25+','S931':'Galaxy S25','S908':'Galaxy S22 Ultra','S906':'Galaxy S22+','S901':'Galaxy S22','G998':'Galaxy S21 Ultra','G996':'Galaxy S21+','G991':'Galaxy S21','F946':'Galaxy Z Fold5','F731':'Galaxy Z Flip5','F956':'Galaxy Z Fold6','F741':'Galaxy Z Flip6','A546':'Galaxy A54','A556':'Galaxy A55','A346':'Galaxy A34','A356':'Galaxy A35','A146':'Galaxy A14','A156':'Galaxy A15','A166':'Galaxy A16','A256':'Galaxy A25','A536':'Galaxy A53','A736':'Galaxy A73','M346':'Galaxy M34','M146':'Galaxy M14','M156':'Galaxy M15','M556':'Galaxy M55','X910':'Galaxy Tab S9 Ultra','X710':'Galaxy Tab S9'};
+function friendlyModel(m){ if(!m) return null; m=m.trim(); var s=m.match(/^SM-([A-Z]\d{3})/i); if(s){ var k=s[1].toUpperCase(); return 'Samsung '+(SAMSUNG[k]||m); } if(/^Pixel/i.test(m)) return 'Google '+m; if(/^CPH\d|^PJ|^PH/i.test(m)) return 'OnePlus/OPPO '+m; if(/^RMX/i.test(m)) return 'Realme '+m; if(/^V\d{4}/i.test(m)) return 'Vivo '+m; if(/^M\d{4}|^\d{4,7}[A-Z]{1,3}$|Redmi|POCO|Xiaomi|^Mi /i.test(m)) return 'Xiaomi/Redmi '+m; if(/^moto|^XT\d/i.test(m)) return 'Motorola '+m; if(/^Nokia/i.test(m)) return m; if(/^Infinix|^TECNO|^itel/i.test(m)) return m; return m; }
+function guessDevice(){ var ua=navigator.userAgent||'';
+  if(/iPhone/.test(ua)){ var w=Math.min(screen.width,screen.height),h=Math.max(screen.width,screen.height),r=window.devicePixelRatio||1; var k=w+'x'+h+'@'+r; var map={'430x932@3':'iPhone 14 Pro Max / 15 Plus / 15 Pro Max / 16 Plus','393x852@3':'iPhone 14 Pro / 15 / 15 Pro / 16','402x874@3':'iPhone 16 Pro','440x956@3':'iPhone 16 Pro Max','428x926@3':'iPhone 12/13 Pro Max / 14 Plus','390x844@3':'iPhone 12 / 13 / 14','375x812@3':'iPhone X / XS / 11 Pro / 12 mini / 13 mini','414x896@2':'iPhone XR / 11','414x896@3':'iPhone XS Max / 11 Pro Max','414x736@3':'iPhone 6/7/8 Plus','375x667@2':'iPhone 6/7/8 / SE (2nd/3rd gen)','320x568@2':'iPhone 5/SE (1st gen)'}; return 'Apple '+(map[k]||'iPhone'); }
+  if(/iPad/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1)) return 'Apple iPad';
+  if(/Android/.test(ua)){ var m=ua.match(/Android[^;]*;\s*([^;)]+?)(?:\s+Build|\))/); if(m){ var raw=m[1].replace(/^\s*[a-z]{2}-[a-z]{2}\s*;?\s*/i,'').trim(); if(raw&&!/^Android/i.test(raw)&&raw!=='K') return friendlyModel(raw); } return 'Android phone'; }
+  if(/Windows/.test(ua)) return 'Windows PC'; if(/Mac OS X/.test(ua)) return 'Mac'; if(/CrOS/.test(ua)) return 'Chromebook'; if(/Linux/.test(ua)) return 'Linux PC'; return 'Unknown device'; }
+var _device=guessDevice(), _deviceP=null;
+function getDevice(){ if(_deviceP) return _deviceP; _deviceP=(async function(){ try{ if(navigator.userAgentData&&navigator.userAgentData.getHighEntropyValues){ var h=await navigator.userAgentData.getHighEntropyValues(['model','platform','platformVersion']); if(h&&h.model){ var fm=friendlyModel(h.model); if(fm) _device=fm; } } }catch(e){} return _device; })(); return _deviceP; }
+var pageTag=(function(){ try{ var p=new URLSearchParams(location.search); return (p.get('src')||p.get('ref')||'').toLowerCase().trim()||null; }catch(e){ return null; } })();
+try{ if(pageTag) sessionStorage.setItem('film_tag',pageTag); else pageTag=sessionStorage.getItem('film_tag')||null; }catch(e){}
+var pageSource=resolveSource(); if(pageTag&&pageSource==='Direct / Unknown'){ pageSource=pageTag.charAt(0).toUpperCase()+pageTag.slice(1); } var _inApp=inApp(); if(pageSource==='Direct / Unknown' && _inApp) pageSource=_inApp+' (in-app)';
 if(pageSource==='Direct / Unknown' && /Android|iPhone|iPad/i.test(navigator.userAgent||'')) pageSource='Direct (likely messaging app)';
 var _bot=isBot();
 
@@ -1031,14 +1049,14 @@ if(db){
       for(var i=0;i<tries.length;i++){ try{ var c=new AbortController(); var tm=setTimeout(function(){c.abort()},3500); var r=await fetch(tries[i][0],{signal:c.signal}); clearTimeout(tm); var g=tries[i][1](await r.json()); if(g&&g.country){ geo=g; try{ sessionStorage.setItem('film_geo',JSON.stringify(g)); }catch(e){} return g; } }catch(e){} }
       return null; })(); return geoP; }
   var logVisit=async function(){ var pg=pageName(); if(pg===lastPage) return; lastPage=pg;
-    var g=null; try{ g=await getGeo(); }catch(e){}
-    try{ await db.collection(C_VISITS).add({ ts:firebase.firestore.FieldValue.serverTimestamp(), sid:sid, page:pg, referrer:document.referrer||null, source:pageSource, ua:navigator.userAgent, lang:navigator.language||null, screen:screen.width+'x'+screen.height, tz:(Intl.DateTimeFormat().resolvedOptions().timeZone||null), city:g?g.city||null:null, region:g?g.region||null:null, country:g?g.country||null:null, cc:g?g.cc||null:null, isp:g?g.isp||null:null, conn:connKind(g), bot:_bot }); }catch(e){} };
+    var g=null; try{ g=await getGeo(); }catch(e){} try{ await getDevice(); }catch(e){}
+    try{ await db.collection(C_VISITS).add({ ts:firebase.firestore.FieldValue.serverTimestamp(), sid:sid, page:pg, referrer:document.referrer||null, source:pageSource, ua:navigator.userAgent, lang:navigator.language||null, screen:screen.width+'x'+screen.height, tz:(Intl.DateTimeFormat().resolvedOptions().timeZone||null), city:g?g.city||null:null, region:g?g.region||null:null, country:g?g.country||null:null, cc:g?g.cc||null:null, isp:g?g.isp||null:null, conn:connKind(g), bot:_bot, device:_device, tag:pageTag }); }catch(e){} };
   logVisit(); window.addEventListener('hashchange',function(){ if(location.hash!=='#admin') logVisit(); });
 
   var beat=async function(){ try{ await db.collection(C_PRESENCE).doc(sid).set({ lastSeen:firebase.firestore.FieldValue.serverTimestamp(), page:pageName() }); }catch(e){} };
   if(!_bot){ beat(); setInterval(beat,15000); } document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='visible') beat(); });
 
-  var logEvent=function(kind){ var g=geo||{}; db.collection(C_EVENTS).add({ ts:firebase.firestore.FieldValue.serverTimestamp(), sid:sid, kind:kind, page:pageName(), source:pageSource, ua:navigator.userAgent, screen:screen.width+'x'+screen.height, tz:(Intl.DateTimeFormat().resolvedOptions().timeZone||null), city:g.city||null, region:g.region||null, country:g.country||null }).catch(function(){}); };
+  var logEvent=function(kind){ var g=geo||{}; db.collection(C_EVENTS).add({ ts:firebase.firestore.FieldValue.serverTimestamp(), sid:sid, kind:kind, page:pageName(), source:pageSource, ua:navigator.userAgent, screen:screen.width+'x'+screen.height, tz:(Intl.DateTimeFormat().resolvedOptions().timeZone||null), city:g.city||null, region:g.region||null, country:g.country||null, device:_device, tag:pageTag }).catch(function(){}); };
   document.addEventListener('click',function(e){
     var a=e.target.closest('a'); if(!a) return; var h=a.getAttribute('href')||'';
     if(/^mailto:/.test(h)) logEvent('Email click');
@@ -1056,7 +1074,20 @@ if(db){
   var overlay=window.__fa; if(!overlay) return;
   if(!auth||!db){ overlay.querySelector('#fa-err').textContent='Analytics service could not load.'; return; }
 
-  var loginView=overlay.querySelector('#fa-login-view'), dashView=overlay.querySelector('#fa-dash-view'), errEl=overlay.querySelector('#fa-err'), unsubs=[], showBots=false, lastVisitsSnap=null;
+  var loginView=overlay.querySelector('#fa-login-view'), dashView=overlay.querySelector('#fa-dash-view'), errEl=overlay.querySelector('#fa-err'), unsubs=[], showBots=false, lastVisitsSnap=null, lastEventsSnap=null;
+  var LINKS={};
+  function srcLabel(v){ var tg=(v.tag||'').toLowerCase(); if(tg&&LINKS[tg]) return LINKS[tg].name; if(tg&&!LINKS[tg]&&/^[a-z0-9]{6}$/.test(tg)) return 'Deleted link ('+tg+')'; return v.source||'Direct / Unknown'; }
+  function siteBase(){ return location.origin+location.pathname; }
+  function linkFor(code,floor){ return siteBase()+'?src='+code+(floor?'#/project/feature':''); }
+  function genCode(){ var a='abcdefghjkmnpqrstuvwxyz23456789', s=''; var r=new Uint8Array(6); if(crypto.getRandomValues){ crypto.getRandomValues(r); } else { for(var j=0;j<6;j++) r[j]=Math.random()*256; } for(var i=0;i<6;i++) s+=a[r[i]%a.length]; return s; }
+  function copyText(txt,btn){ var done=function(){ btn.classList.add('ok'); var o=btn.textContent; btn.textContent='Copied'; setTimeout(function(){ btn.classList.remove('ok'); btn.textContent=o; },1400); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done,function(){ window.prompt('Copy this link',txt); }); } else { window.prompt('Copy this link',txt); } }
+  overlay.querySelector('#fa-link-add').addEventListener('click',async function(){ var inp=overlay.querySelector('#fa-link-name'); var name=inp.value.trim(); if(!name) { inp.focus(); return; } var code=genCode(); try{ await db.collection(C_LINKS).doc(code).set({ name:name, created:firebase.firestore.FieldValue.serverTimestamp() }); inp.value=''; }catch(e){ alert('Could not save link: '+(e.message||e)); } });
+  overlay.querySelector('#fa-link-name').addEventListener('keydown',function(e){ if(e.key==='Enter') overlay.querySelector('#fa-link-add').click(); });
+  overlay.addEventListener('click',function(e){ var c=e.target.closest('.fa-copy'); if(c){ copyText(c.dataset.link,c); return; } var d=e.target.closest('.fa-del'); if(d){ var code=d.dataset.code; if(confirm('Delete link for "'+(LINKS[code]?LINKS[code].name:code)+'"? Past visits stay, but will show the code instead of the name.')){ db.collection(C_LINKS).doc(code).delete().catch(function(err){ alert(err.message||err); }); } } });
+  var linkStats={};
+  function renderLinks(){ var tb=overlay.querySelector('#fa-links-table tbody'); var codes=Object.keys(LINKS).sort(function(a,b){ return (LINKS[b].createdMs||0)-(LINKS[a].createdMs||0); }); if(!codes.length){ tb.innerHTML='<tr><td colspan="6" class="fa-empty">No links yet — create one above.</td></tr>'; return; }
+    tb.innerHTML=codes.map(function(c){ var L=LINKS[c], s=linkStats[c]||{n:0,last:0}; return '<tr><td><b>'+esc(L.name)+'</b></td><td><span class="fa-code">'+esc(c)+'</span></td><td>'+s.n+'</td><td>'+(s.last?timeAgo(s.last):'—')+'</td><td><button class="fa-copy" data-link="'+esc(linkFor(c,false))+'">Copy home link</button><button class="fa-copy" data-link="'+esc(linkFor(c,true))+'">Copy The Floor link</button></td><td><button class="fa-del" data-code="'+esc(c)+'" title="Delete">✕</button></td></tr>'; }).join(''); }
   overlay.querySelector('#fa-showbots').addEventListener('change',function(e){ showBots=e.target.checked; if(lastVisitsSnap) renderVisits(lastVisitsSnap); });
   overlay.querySelector('#fa-login-btn').addEventListener('click',async function(){ errEl.textContent=''; try{ await auth.signInWithEmailAndPassword(overlay.querySelector('#fa-email').value.trim(),overlay.querySelector('#fa-pass').value); }catch(e){ errEl.textContent='Sign-in failed — check your email and password.'; } });
   overlay.querySelector('#fa-pass').addEventListener('keydown',function(e){ if(e.key==='Enter') overlay.querySelector('#fa-login-btn').click(); });
@@ -1069,26 +1100,28 @@ if(db){
   function bars(el,counts){ var keys=Object.keys(counts).sort(function(a,b){ return counts[b]-counts[a]; }).slice(0,8); if(!keys.length){ el.innerHTML='<div class="fa-empty">No data yet.</div>'; return; } var max=counts[keys[0]]||1; el.innerHTML=keys.map(function(k){ return '<div class="fa-bar"><span>'+esc(k)+'</span><i style="width:'+Math.round(counts[k]/max*100)+'%"></i><b>'+counts[k]+'</b></div>'; }).join(''); }
 
   function start(){
+    unsubs.push(db.collection(C_LINKS).onSnapshot(function(snap){ LINKS={}; snap.forEach(function(d){ var v=d.data(); LINKS[d.id]={ name:v.name||d.id, createdMs:(v.created&&v.created.toMillis)?v.created.toMillis():0 }; }); renderLinks(); if(lastVisitsSnap) renderVisits(lastVisitsSnap); if(lastEventsSnap) renderEvents(lastEventsSnap); },function(e){ console.warn(e); }));
     unsubs.push(db.collection(C_PRESENCE).onSnapshot(function(snap){ var now=Date.now(),n=0; snap.forEach(function(d){ var v=d.data(); var ms=v.lastSeen&&v.lastSeen.toMillis?v.lastSeen.toMillis():0; if(now-ms<45000) n++; }); overlay.querySelector('#fa-active').textContent=n; },function(e){ overlay.querySelector('#fa-active').textContent='!'; console.warn(e); }));
     var tick=setInterval(function(){ var el=overlay.querySelector('#fa-active'); },20000); unsubs.push(function(){ clearInterval(tick); });
     function renderVisits(snap){ lastVisitsSnap=snap;
-      var rows=[],sids={},src={},dev={},floor=0,locs={},ctry={},bots=0,human=0;
+      var rows=[],sids={},src={},dev={},floor=0,locs={},ctry={},bots=0,human=0,models={},stats={};
       function _unused(v){ if(v.city||v.country){ return [v.city,v.region,v.country].filter(Boolean).filter(function(x,i,a){return a.indexOf(x)===i}).join(', '); } return v.tz?('~ '+v.tz.replace('_',' ')):'Unknown'; }
-      snap.forEach(function(d){ var v=d.data(); var ms=v.ts&&v.ts.toMillis?v.ts.toMillis():Date.now(); if(v.bot){ bots++; if(!showBots) return; } else human++; if(v.sid) sids[v.sid]=1; if(v.page==='The Floor') floor++; src[v.source||'Direct / Unknown']=(src[v.source||'Direct / Unknown']||0)+1; var dv=uaSummary(v.ua); dev[dv]=(dev[dv]||0)+1;
+      snap.forEach(function(d){ var v=d.data(); var ms=v.ts&&v.ts.toMillis?v.ts.toMillis():Date.now(); if(v.bot){ bots++; if(!showBots) return; } else human++; if(v.sid) sids[v.sid]=1; if(v.page==='The Floor') floor++; var sl=srcLabel(v); src[sl]=(src[sl]||0)+1; var tg=(v.tag||'').toLowerCase(); if(tg&&LINKS[tg]){ var st=stats[tg]||(stats[tg]={n:0,last:0,sids:{}}); if(!st.sids[v.sid||ms]){ st.sids[v.sid||ms]=1; st.n++; } if(ms>st.last) st.last=ms; } var dv=uaSummary(v.ua); dev[dv]=(dev[dv]||0)+1; var dn=v.device||'—'; models[dn]=(models[dn]||0)+1;
         var lc=locOf(v); locs[lc]=(locs[lc]||0)+1; var cn=v.country||(v.tz?('~ '+v.tz.split('/')[0]):'Unknown'); ctry[cn]=(ctry[cn]||0)+1;
         var net=(v.conn||'—')+(v.isp?' · '+v.isp:''); if(v.bot) net='<span class="fa-tag">bot / preview</span> '+net;
-        if(rows.length<100) rows.push(row([timeAgo(ms),esc(v.page),esc(v.source),esc(lc),esc(dv)+(v.screen?' · '+esc(v.screen):''),net.indexOf('<span')===0?net.replace(/(<span[^>]*>[^<]*<\/span>)(.*)/,function(m,a,b){return a+esc(b)}):esc(net)])); });
+        if(rows.length<100) rows.push(row([timeAgo(ms),esc(v.page),esc(srcLabel(v)),esc(lc),(v.device?'<b>'+esc(v.device)+'</b><br>':'')+esc(dv)+(v.screen?' · '+esc(v.screen):''),net.indexOf('<span')===0?net.replace(/(<span[^>]*>[^<]*<\/span>)(.*)/,function(m,a,b){return a+esc(b)}):esc(net)])); });
       overlay.querySelector('#fa-sessions').textContent=Object.keys(sids).length; overlay.querySelector('#fa-visits').textContent=(showBots?snap.size:human); overlay.querySelector('#fa-floor').textContent=floor; overlay.querySelector('#fa-bots').textContent=bots;
       overlay.querySelector('#fa-visits-table tbody').innerHTML=rows.length?rows.join(''):'<tr><td colspan="6" class="fa-empty">No visits yet.</td></tr>';
-      bars(overlay.querySelector('#fa-sources'),src); bars(overlay.querySelector('#fa-devices'),dev); bars(overlay.querySelector('#fa-locs'),locs); bars(overlay.querySelector('#fa-countries'),ctry);
+      bars(overlay.querySelector('#fa-sources'),src); bars(overlay.querySelector('#fa-devices'),dev); bars(overlay.querySelector('#fa-locs'),locs); bars(overlay.querySelector('#fa-countries'),ctry); bars(overlay.querySelector('#fa-models'),models); linkStats=stats; renderLinks();
     }
     unsubs.push(db.collection(C_VISITS).orderBy('ts','desc').limit(2000).onSnapshot(renderVisits,function(e){ console.warn(e); overlay.querySelector('#fa-visits-table tbody').innerHTML='<tr><td colspan="6" class="fa-empty">Error: '+esc(e.message||e)+'</td></tr>'; }));
-    unsubs.push(db.collection(C_EVENTS).orderBy('ts','desc').limit(200).onSnapshot(function(snap){
+    function renderEvents(snap){ lastEventsSnap=snap;
       var rows=[],contacts=0;
-      snap.forEach(function(d){ var v=d.data(); var ms=v.ts&&v.ts.toMillis?v.ts.toMillis():Date.now(); if(/click/.test(v.kind||'')) contacts++; if(rows.length<100) rows.push(row([timeAgo(ms),esc(v.kind),esc(v.page),esc(v.source),esc(locOf(v)),esc(uaSummary(v.ua))+(v.screen?' · '+esc(v.screen):'')])); });
+      snap.forEach(function(d){ var v=d.data(); var ms=v.ts&&v.ts.toMillis?v.ts.toMillis():Date.now(); if(/click/.test(v.kind||'')) contacts++; if(rows.length<100) rows.push(row([timeAgo(ms),esc(v.kind),esc(v.page),esc(srcLabel(v)),esc(locOf(v)),(v.device?'<b>'+esc(v.device)+'</b><br>':'')+esc(uaSummary(v.ua))+(v.screen?' · '+esc(v.screen):'')])); });
       overlay.querySelector('#fa-contacts').textContent=contacts;
       overlay.querySelector('#fa-events-table tbody').innerHTML=rows.length?rows.join(''):'<tr><td colspan="6" class="fa-empty">No interactions yet.</td></tr>';
-    },function(e){ console.warn(e); overlay.querySelector('#fa-events-table tbody').innerHTML='<tr><td colspan="6" class="fa-empty">Error: '+esc(e.message||e)+'</td></tr>'; overlay.querySelector('#fa-contacts').textContent='!'; }));
+    }
+    unsubs.push(db.collection(C_EVENTS).orderBy('ts','desc').limit(200).onSnapshot(renderEvents,function(e){ console.warn(e); overlay.querySelector('#fa-events-table tbody').innerHTML='<tr><td colspan="6" class="fa-empty">Error: '+esc(e.message||e)+'</td></tr>'; overlay.querySelector('#fa-contacts').textContent='!'; }));
   }
 })();
 })();
