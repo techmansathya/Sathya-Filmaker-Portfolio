@@ -963,7 +963,7 @@ window.__fa=(function(){
         '<div class="fa-two"><div class="fa-section"><h3>Top locations</h3><div class="fa-bars" id="fa-locs"><div class="fa-empty">Loading…</div></div></div>'+
         '<div class="fa-section"><h3>Countries</h3><div class="fa-bars" id="fa-countries"><div class="fa-empty">Loading…</div></div></div></div>'+
         '<div class="fa-section"><h3>Recent visits</h3><div class="fa-scroll"><table class="fa-table" id="fa-visits-table"><thead><tr><th>When</th><th>Page</th><th>Source</th><th>Location</th><th>Device</th></tr></thead><tbody><tr><td colspan="5" class="fa-empty">Loading…</td></tr></tbody></table></div></div>'+
-        '<div class="fa-section"><h3>Recent interactions</h3><div class="fa-scroll"><table class="fa-table" id="fa-events-table"><thead><tr><th>When</th><th>Action</th><th>Page</th><th>Source</th></tr></thead><tbody><tr><td colspan="4" class="fa-empty">Loading…</td></tr></tbody></table></div></div>'+
+        '<div class="fa-section"><h3>Recent interactions</h3><div class="fa-scroll"><table class="fa-table" id="fa-events-table"><thead><tr><th>When</th><th>Action</th><th>Page</th><th>Source</th><th>Location</th><th>Device</th></tr></thead><tbody><tr><td colspan="6" class="fa-empty">Loading…</td></tr></tbody></table></div></div>'+
       '</div></div>';
   document.body.appendChild(overlay);
 
@@ -1032,7 +1032,7 @@ if(db){
   var beat=async function(){ try{ await db.collection(C_PRESENCE).doc(sid).set({ lastSeen:firebase.firestore.FieldValue.serverTimestamp(), page:pageName() }); }catch(e){} };
   beat(); setInterval(beat,15000); document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='visible') beat(); });
 
-  var logEvent=function(kind){ db.collection(C_EVENTS).add({ ts:firebase.firestore.FieldValue.serverTimestamp(), sid:sid, kind:kind, page:pageName(), source:pageSource, ua:navigator.userAgent }).catch(function(){}); };
+  var logEvent=function(kind){ var g=geo||{}; db.collection(C_EVENTS).add({ ts:firebase.firestore.FieldValue.serverTimestamp(), sid:sid, kind:kind, page:pageName(), source:pageSource, ua:navigator.userAgent, screen:screen.width+'x'+screen.height, tz:(Intl.DateTimeFormat().resolvedOptions().timeZone||null), city:g.city||null, region:g.region||null, country:g.country||null }).catch(function(){}); };
   document.addEventListener('click',function(e){
     var a=e.target.closest('a'); if(!a) return; var h=a.getAttribute('href')||'';
     if(/^mailto:/.test(h)) logEvent('Email click');
@@ -1056,6 +1056,7 @@ if(db){
   overlay.querySelector('#fa-signout-btn').addEventListener('click',async function(){ unsubs.forEach(function(u){u();}); unsubs=[]; await auth.signOut(); });
   auth.onAuthStateChanged(function(user){ unsubs.forEach(function(u){u();}); unsubs=[]; if(user){ loginView.style.display='none'; dashView.style.display='block'; start(); } else { loginView.style.display='block'; dashView.style.display='none'; } });
 
+  function locOf(v){ if(v.city||v.country){ return [v.city,v.region,v.country].filter(Boolean).filter(function(x,i,a){return a.indexOf(x)===i}).join(', '); } return v.tz?('~ '+v.tz.replace('_',' ')):'Unknown'; }
   function esc(s){ return String(s==null?'—':s).replace(/[&<>]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); }
   function row(cells){ return '<tr>'+cells.map(function(c){ return '<td>'+c+'</td>'; }).join('')+'</tr>'; }
   function bars(el,counts){ var keys=Object.keys(counts).sort(function(a,b){ return counts[b]-counts[a]; }).slice(0,8); if(!keys.length){ el.innerHTML='<div class="fa-empty">No data yet.</div>'; return; } var max=counts[keys[0]]||1; el.innerHTML=keys.map(function(k){ return '<div class="fa-bar"><span>'+esc(k)+'</span><i style="width:'+Math.round(counts[k]/max*100)+'%"></i><b>'+counts[k]+'</b></div>'; }).join(''); }
@@ -1065,7 +1066,7 @@ if(db){
     var tick=setInterval(function(){ var el=overlay.querySelector('#fa-active'); },20000); unsubs.push(function(){ clearInterval(tick); });
     unsubs.push(db.collection(C_VISITS).orderBy('ts','desc').limit(2000).onSnapshot(function(snap){
       var rows=[],sids={},src={},dev={},floor=0,locs={},ctry={};
-      function locOf(v){ if(v.city||v.country){ return [v.city,v.region,v.country].filter(Boolean).filter(function(x,i,a){return a.indexOf(x)===i}).join(', '); } return v.tz?('~ '+v.tz.replace('_',' ')):'Unknown'; }
+      function _unused(v){ if(v.city||v.country){ return [v.city,v.region,v.country].filter(Boolean).filter(function(x,i,a){return a.indexOf(x)===i}).join(', '); } return v.tz?('~ '+v.tz.replace('_',' ')):'Unknown'; }
       snap.forEach(function(d){ var v=d.data(); var ms=v.ts&&v.ts.toMillis?v.ts.toMillis():Date.now(); if(v.sid) sids[v.sid]=1; if(v.page==='The Floor') floor++; src[v.source||'Direct / Unknown']=(src[v.source||'Direct / Unknown']||0)+1; var dv=uaSummary(v.ua); dev[dv]=(dev[dv]||0)+1;
         var lc=locOf(v); locs[lc]=(locs[lc]||0)+1; var cn=v.country||(v.tz?('~ '+v.tz.split('/')[0]):'Unknown'); ctry[cn]=(ctry[cn]||0)+1;
         if(rows.length<100) rows.push(row([timeAgo(ms),esc(v.page),esc(v.source),esc(lc),esc(dv)+(v.screen?' · '+esc(v.screen):'')])); });
@@ -1075,10 +1076,10 @@ if(db){
     },function(e){ console.warn(e); overlay.querySelector('#fa-visits-table tbody').innerHTML='<tr><td colspan="5" class="fa-empty">Error: '+esc(e.message||e)+'</td></tr>'; }));
     unsubs.push(db.collection(C_EVENTS).orderBy('ts','desc').limit(200).onSnapshot(function(snap){
       var rows=[],contacts=0;
-      snap.forEach(function(d){ var v=d.data(); var ms=v.ts&&v.ts.toMillis?v.ts.toMillis():Date.now(); if(/click/.test(v.kind||'')) contacts++; if(rows.length<100) rows.push(row([timeAgo(ms),esc(v.kind),esc(v.page),esc(v.source)])); });
+      snap.forEach(function(d){ var v=d.data(); var ms=v.ts&&v.ts.toMillis?v.ts.toMillis():Date.now(); if(/click/.test(v.kind||'')) contacts++; if(rows.length<100) rows.push(row([timeAgo(ms),esc(v.kind),esc(v.page),esc(v.source),esc(locOf(v)),esc(uaSummary(v.ua))+(v.screen?' · '+esc(v.screen):'')])); });
       overlay.querySelector('#fa-contacts').textContent=contacts;
-      overlay.querySelector('#fa-events-table tbody').innerHTML=rows.length?rows.join(''):'<tr><td colspan="4" class="fa-empty">No interactions yet.</td></tr>';
-    },function(e){ console.warn(e); overlay.querySelector('#fa-events-table tbody').innerHTML='<tr><td colspan="4" class="fa-empty">Error: '+esc(e.message||e)+'</td></tr>'; overlay.querySelector('#fa-contacts').textContent='!'; }));
+      overlay.querySelector('#fa-events-table tbody').innerHTML=rows.length?rows.join(''):'<tr><td colspan="6" class="fa-empty">No interactions yet.</td></tr>';
+    },function(e){ console.warn(e); overlay.querySelector('#fa-events-table tbody').innerHTML='<tr><td colspan="6" class="fa-empty">Error: '+esc(e.message||e)+'</td></tr>'; overlay.querySelector('#fa-contacts').textContent='!'; }));
   }
 })();
 })();
